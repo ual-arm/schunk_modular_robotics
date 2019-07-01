@@ -45,6 +45,24 @@
       <material value="Schunk/LightGrey" />
     </gazebo>
 
+    <gazebo reference="${name}_gripper_link">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <material value="Schunk/Blue" />
+    </gazebo>
+
+    <gazebo reference="${name}_finger1_link">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <material value="Schunk/LightGrey" />
+    </gazebo>
+
+    <gazebo reference="${name}_finger2_link">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <material value="Schunk/LightGrey" />
+    </gazebo>
+
   </xacro:macro>
 
 </robot>

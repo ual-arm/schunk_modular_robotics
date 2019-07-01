@@ -63,14 +63,14 @@
     </joint>
 
     <link name="${name}_1_link">
-      <xacro:default_inertial/>
-<!--
+      <!--xacro:default_inertial/-->
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <mass value="0.29364"/>
         <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
       </inertial>
--->
+
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -99,14 +99,14 @@
     </joint>
 
     <link name="${name}_2_link">
-      <xacro:default_inertial/>
-<!--
+      <!--xacro:default_inertial/-->
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1.68311"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
       </inertial>
--->
+
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -135,14 +135,14 @@
     </joint>
 
     <link name="${name}_3_link">
-      <xacro:default_inertial/>
-<!--
+      <!--xacro:default_inertial/-->
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="2.1"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
       </inertial>
--->
+
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -171,14 +171,14 @@
     </joint>
 
     <link name="${name}_4_link">
-      <xacro:default_inertial/>
-<!--
+      <!--xacro:default_inertial/-->
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1.68311"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
       </inertial>
--->
+
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -207,14 +207,14 @@
     </joint>
 
     <link name="${name}_5_link">
-      <xacro:default_inertial/>
-<!--
+      <!--xacro:default_inertial/-->
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.807"/>
         <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03" />
       </inertial>
--->
+
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -243,14 +243,14 @@
     </joint>
 
     <link name="${name}_6_link">
-      <xacro:default_inertial/>
-<!--
+      <!--xacro:default_inertial/-->
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="0.819"/>
         <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
       </inertial>
--->
+
 
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -268,12 +268,96 @@
       </collision>
     </link>
 
+    <!-- joint between arm_6_link and Gripper -->
+    <joint name="${name}_gripper_base" type="fixed">
+      <origin xyz="0 0 0.075" rpy="0 0 0" />
+      <parent link="${name}_6_link" />
+      <child link="${name}_gripper_link" />
+    </joint>
+
+    <link name="${name}_gripper_link">
+      <xacro:default_inertial/>
+
+      <visual>
+        <origin xyz="-0.03 0.032 0.007" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4p/gripper_base.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Schunk/Blue" />
+      </visual>
+
+      <collision>
+        <origin xyz="-0.03 0.032 0.007" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4p/gripper_base.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between gripper_base and finger1 -->
+    <joint name="${name}_finger1" type="fixed">
+      <origin xyz="0 -0.015 0.11" rpy="0 0 0" />
+      <parent link="${name}_gripper_link" />
+      <child link="${name}_finger1_link" />
+      <!--axis xyz="0 1 0" />
+      <limit effort="1" velocity="1.26" lower="${-0.01}" upper="${0}" /-->
+    </joint>
+
+    <link name="${name}_finger1_link">
+      <xacro:default_inertial/>
+
+      <visual>
+        <origin xyz="0.01 -0.01 0.028" rpy="0 1.5708 1.5708" />
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4p/finger1.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Schunk/LightGrey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0.01 -0.01 0.028" rpy="0 1.5708 1.5708" />
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4p/finger1.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- joint between gripper_base and finger2 -->
+    <joint name="${name}_finger2" type="fixed">
+      <origin xyz="0 0.015 0.11" rpy="0 0 0" />
+      <parent link="${name}_gripper_link" />
+      <child link="${name}_finger2_link" />
+      <!--axis xyz="0 1 0" />
+      <limit effort="1" velocity="1.26" lower="${0}" upper="${0.01}" /-->
+    </joint>
+
+    <link name="${name}_finger2_link">
+      <xacro:default_inertial/>
+
+      <visual>
+        <origin xyz="0.01 0.0 0.028" rpy="0 1.5708 1.5708" />
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4p/finger1.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="Schunk/LightGrey" />
+      </visual>
+
+      <collision>
+        <origin xyz="0.01 0.0 0.028" rpy="0 1.5708 1.5708" />
+        <geometry>
+          <mesh filename="package://schunk_description/meshes/lwa4p/finger1.STL" scale="0.001 0.001 0.001" />
+        </geometry>
+      </collision>
+    </link>
+
+
 
     <!-- extensions -->
     <xacro:schunk_lwa4p_gazebo name="${name}" />
     <xacro:schunk_lwa4p_transmission name="${name}" />
 
     <!-- ros_control plugin -->
+
     <gazebo>
       <plugin name="ros_control" filename="libhwi_switch_gazebo_ros_control.so">
         <robotNamespace>${name}</robotNamespace>
@@ -283,5 +367,6 @@
 
   </xacro:macro>
 
-</robot>
 
+
+</robot>
